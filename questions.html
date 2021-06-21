@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <p><a href="index.html">index</a></p>
+    <svg
+      id="mySVG"
+      width="400"
+      height="300"
+      style="margin: 50"
+      xmlns="http://www.w3.org/2000/svg"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+    ></svg>
+    <p>
+      <svg
+        id="mySVG2"
+        width="400"
+        height="300"
+        style="margin: 50"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+      ></svg>
+    </p>
+    <div>
+      <img id="svg-image" src="" alt="svg-image" />
+    </div>
+    <div id="svg-base64-output"></div>
+    <br />
+    <br />
+    <br />
+
+    <script type="text/javascript">
+      //Try this function and adapt for you program:
+      // const mySVG = document.getElementById("mySVG");
+      // var svgNS = "http://www.w3.org/2000/svg";
+      // const graphWidth = 700;
+      // const graphHight = 500;
+
+      function createLine(graphWidth, graphHight, svgElem) {
+        console.log("in functionnn");
+
+        //to create a line."
+        svgElem.setAttribute("width", graphWidth);
+        svgElem.setAttribute("height", graphHight);
+        //draw horizontal line
+
+        let rowGapIncrement = 20;
+        for (
+          let rowGap = 60;
+          rowGap <= graphHight;
+          rowGap = rowGap + rowGapIncrement
+        ) {
+          console.log("in functionnn222222");
+
+          var myLine = document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "line"
+          );
+          myLine.setAttribute("id", rowGap);
+          myLine.setAttribute("x1", 60);
+          myLine.setAttribute("y1", rowGap);
+          myLine.setAttribute("x2", graphWidth);
+          myLine.setAttribute("y2", rowGap);
+
+          myLine.setAttribute("stroke", "black");
+
+          svgElem.appendChild(myLine);
+        }
+        //draw vertical lines
+        for (
+          let columnGap = 60;
+          columnGap <= graphWidth;
+          columnGap = columnGap + rowGapIncrement
+        ) {
+          console.log("in functionnn222222");
+          //var myLine = document.createElementNS(svgNS, "line");
+          var myLine = document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "line"
+          );
+          myLine.setAttribute("id", columnGap);
+          myLine.setAttribute("x1", columnGap);
+          myLine.setAttribute("y1", 60);
+          myLine.setAttribute("x2", columnGap);
+          myLine.setAttribute("y2", graphHight);
+          //myLine.style["stroke-width"] = 10;
+          myLine.setAttribute("stroke", "black");
+
+          svgElem.appendChild(myLine);
+        }
+      }
+      //createLine(graphWidth, graphHight);
+
+      //draw points
+      const pointArray = [
+        { cx: 80, cy: 500 - 60 },
+        { cx: 160, cy: 500 - 120 },
+        { cx: 240, cy: 500 - 180 },
+        { cx: 320, cy: 500 - 240 },
+        { cx: 400, cy: 500 - 300 },
+        { cx: 480, cy: 500 - 360 },
+        // { cx: 300, cy: 130 },
+        // { cx: 400, cy: 170 },
+        // { cx: 500, cy: 190 },
+      ];
+      //x-axis values:20,40,60,80,100,120,140
+      //plotted-x-axis values:80,160,240,320,400,480,560
+      // //y-axis values: 60,120,180,240,300,360,400
+      // { cx: 80, cy: 500 - 60 },
+      //   { cx: 160, cy: 500 - 120 },
+      //   { cx: 240, cy: 500 - 180 },
+      //   { cx: 320, cy: 500 - 240 },
+      //   { cx: 400, cy: 500 - 300 },
+      //   { cx: 480, cy: 500 - 360 },
+
+      function plotPoints(pointArray, graphHight, svgElem) {
+        for (let index = 0; index < pointArray.length; index++) {
+          const element = pointArray[index];
+
+          //const element = array[index];
+          console.log("in functionnn555555");
+          //var myLine = document.createElementNS(svgNS, "line");
+          var myPointCircle = document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "circle"
+          );
+          myPointCircle.setAttribute("id", `${index}point-id`);
+          myPointCircle.setAttribute("cx", element.cx + 60);
+          myPointCircle.setAttribute("cy", element.cy);
+          myPointCircle.setAttribute("r", 5);
+          //myPointCircle.setAttribute("y2", graphHight);
+          //myLine.style["stroke-width"] = 10;
+          myPointCircle.setAttribute("stroke", "red");
+          myPointCircle.setAttribute("fill", "pink");
+          // myCircle.setAttributeNS(null, "stroke", "none");
+
+          svgElem.appendChild(myPointCircle);
+        }
+      }
+      //plotPoints(pointArray, graphHight);
+      // const xAxisXArray = [
+      //   { x: 20, y: 500 + 15, pox: 80 },
+      //   { x: 40, y: 500 + 15, pox: 160 },
+      //   { x: 60, y: 500 + 15, pox: 240 },
+      //   { x: 80, y: 500 + 15, pox: 320 },
+      //   { x: 100, y: 500 + 15, pox: 400 },
+      //   { x: 120, y: 500 + 15, pox: 480 },
+      //   // { x: 140, y: 500 + 15, pox: 560 },
+      //   // { x: 160, y: 500 + 15, pox: 640 },
+      // ];
+
+      //label axis
+      function labelXAxis(xAxisXArray, graphWidth, svgElem) {
+        //mySVG.setAttribute("width", graphWidth);
+        svgElem.setAttribute("height", 600);
+
+        rIndex = 0;
+        for (let index = 20; index < graphWidth; index = index + 20) {
+          const element = xAxisXArray[rIndex];
+          if (rIndex < xAxisXArray.length && element.pox === index) {
+            console.log("ffffffff55555");
+            console.log(element.pox, "from pox");
+            var myText = document.createElementNS(
+              "http://www.w3.org/2000/svg",
+              "text"
+            );
+            myText.setAttribute("id", `${index}text-id`);
+            myText.setAttribute("x", element.pox + 60);
+            myText.setAttribute("y", element.y);
+            // myText.setAttribute("r", 5);
+            //myPointCircle.setAttribute("y2", graphHight);
+            //myText.style["stroke-width"] = 10;
+            myText.setAttribute("stroke", "red");
+            myText.setAttribute("fill", "black");
+            // myCircle.setAttributeNS(null, "stroke", "none");
+            myText.style["text-anchor"] = "middle";
+            myText.textContent = String(element.x);
+            svgElem.appendChild(myText);
+            rIndex = rIndex + 1;
+          }
+        }
+      }
+
+      //labelXAxis(xAxisXArray, graphWidth);
+
+      // const yAxisXArray = [
+      //   { y: 60, x: 40, pox: 500 - 60 },
+      //   { y: 120, x: 40, pox: 500 - 120 },
+      //   { y: 180, x: 40, pox: 500 - 180 },
+      //   { y: 240, x: 40, pox: 500 - 240 },
+      //   { y: 300, x: 40, pox: 500 - 300 },
+      //   { y: 360, x: 40, pox: 500 - 360 },
+      //   { y: 420, x: 40, pox: 500 - 420 },
+      //   //{ x: 160, y: 500 + 0, pox: 640 },
+      // ];
+
+      function labelYAxis(yAxisXArray, graphHight, svgElem) {
+        rIndex = 0;
+        //mySVG.setAttribute("width", 700);
+        // mySVG.setAttribute("translateX", 20);
+        for (let index = 10; index < graphHight; index = index + 10) {
+          const element = yAxisXArray[rIndex];
+          if (rIndex < yAxisXArray.length && element.y === index) {
+            console.log("ffffffff55555222");
+            console.log(element.pox, "from pox222");
+            var myText = document.createElementNS(
+              "http://www.w3.org/2000/svg",
+              "text"
+            );
+            myText.setAttribute("id", `${index}text-y-axis-id`);
+            myText.setAttribute("x", element.x);
+            myText.setAttribute("y", element.pox + 5);
+            // myText.setAttribute("r", 5);
+            //myPointCircle.setAttribute("y2", graphHight);
+            //myText.style["stroke-width"] = 10;
+            myText.setAttribute("stroke", "red");
+            myText.setAttribute("fill", "black");
+            // myCircle.setAttributeNS(null, "stroke", "none");
+            myText.style["text-anchor"] = "middle";
+            myText.textContent = String(element.y);
+            svgElem.appendChild(myText);
+            rIndex = rIndex + 1;
+          }
+        }
+      }
+      //labelYAxis(yAxisXArray, graphHight);
+
+      // { cx: 80, cy: 500 - 60 },
+      //   { cx: 160, cy: 500 - 120 },
+      //   { cx: 240, cy: 500 - 180 },
+      //   { cx: 320, cy: 500 - 240 },
+      //   { cx: 400, cy: 500 - 300 },
+      //   { cx: 480, cy: 500 - 360 },
+
+      function joinPoints(svgElem) {
+        svgElem.innerHTML =
+          svgElem.innerHTML +
+          `<polyline
+                  points="100,430 140,400  220,340  300,280 520,120"
+                  style="stroke:#006600; fill: none;stroke-width:3"
+                />`;
+      }
+      //joinPoints();
+
+      function dashPoints(svgElem) {
+        svgElem.innerHTML =
+          svgElem.innerHTML +
+          `<line x1="60"  y1="500" x2="140"   y2="440" style="stroke:#006600; fill: #33cc33;stroke-width:3;stroke-dasharray:10 5"/>`;
+        // `<polyline
+        //   points="140,440 220,380  300,320  380,260 460,200 540,140"
+        //   style="stroke:#006600; fill: #33cc33;stroke-width:3"
+        // />`;
+      }
+      // dashPoints();
+      function dashPointsUpper(svgElem) {
+        svgElem.innerHTML =
+          svgElem.innerHTML +
+          `<line x1="540"  y1="140" x2="620"   y2="80" style="stroke:#006600; fill: #33cc33;stroke-width:3;stroke-dasharray:10 5"/>`;
+        // `<polyline
+        //   points="140,440 220,380  300,320  380,260 460,200 540,140"
+        //   style="stroke:#006600; fill: #33cc33;stroke-width:3"
+        // />`;
+      }
+      // dashPointsUpper();
+
+      const insertMainHorizontalLabel = (svgElem) => {
+        svgElem.innerHTML =
+          svgElem.innerHTML +
+          `<text x="200" y="540"    style="fill: #000000; stroke: none; font-size: 20px;">
+          Volume(mL)
+      </text>`;
+      };
+
+      // insertMainHorizontalLabel();
+
+      const insertMainVerticaltalLabel = (svgElem) => {
+        svgElem.innerHTML =
+          svgElem.innerHTML +
+          `<text x="10" y="150"    style="fill: #000000; stroke: none; font-size: 20px; writing-mode: tb;">
+          Mass of solution(g)
+      </text>`;
+      };
+      // insertMainVerticaltalLabel();
+
+      function insertCaption(svgElem) {
+        // mySVG.setAttribute("width", 750);
+        svgElem.innerHTML =
+          svgElem.innerHTML +
+          `<text x="200" y="30">
+              <tspan style="fill: #000000; stroke: none; font-size: 25px;">Graph of Volume(mL) vs Mass of Solution(g)</tspan>
+              <tspan dx="-260" dy="20" style="fill: green; stroke: none; font-size: 13px;">Drawn By Bede Asonye</tspan>
+          </text>`;
+      }
+      // insertCaption();
+
+      function insertYScale(svgElem) {
+        svgElem.setAttribute("width", 850);
+        svgElem.setAttribute("height", 650);
+        svgElem.innerHTML =
+          svgElem.innerHTML +
+          `<text x="720" y="140"    style="fill: green; stroke: none; font-size: 20px; writing-mode: tb">
+         1 square to 2 g on y-axis
+      </text>`;
+      }
+      // insertYScale();
+      function insertXScale(svgElem) {
+        svgElem.innerHTML =
+          svgElem.innerHTML +
+          `<text x="500" y="540"    style="fill: green; stroke: none; font-size: 20px;">
+                  1 square to 0.1 mL on x-axis
+      </text`;
+      }
+      // insertXScale();
+
+      function drawSlope(svgElem) {
+        svgElem.innerHTML =
+          svgElem.innerHTML +
+          `<polyline
+                  points="220,340 440,340  440,180"
+                  style="stroke:#006600;fill:none;stroke-width:3;stroke-dasharray:10 5"
+                />`;
+      }
+
+      function interpolate(svgElem) {
+        svgElem.innerHTML =
+          svgElem.innerHTML +
+          `<polyline 
+                  points="500,500 500,170  60,170"
+                  style="stroke:#006600;fill:none;stroke-width:3;stroke-dasharray:10 5"
+                ><title>interpolaton</title></polyline>`;
+      }
+
+      function exterpolate(svgElem) {
+        svgElem.innerHTML =
+          svgElem.innerHTML +
+          `<polyline 
+                  points="580,500 580,110  60,110"
+                  style="stroke:#006600;fill:none;stroke-width:3;stroke-dasharray:10 5"
+                > <title>exterpolaton</title></polyline>`;
+      }
+
+      function labelSlope(svgElem) {
+        // svgElem.innerHTML =
+        //   svgElem.innerHTML +
+        //   `<polyline
+        //           points="580,500 580,110  60,110"
+        //           style="stroke:#006600;fill:none;stroke-width:3;stroke-dasharray:10 5"
+        //         > <title>exterpolaton</title></polyline>`;
+        svgElem.innerHTML =
+          svgElem.innerHTML +
+          `<text x="330" y="360"    style="fill: green; stroke: none; font-size: 20px;">
+        1.1 mL
+      </text`;
+        svgElem.innerHTML =
+          svgElem.innerHTML +
+          `<text x="440" y="240"    style="fill: green; stroke: none; font-size: 20px;">
+        16 g
+      </text`;
+        svgElem.innerHTML =
+          svgElem.innerHTML +
+          `<text x="215" y="335"    style="fill: green; stroke: none; font-size: 20px;">
+        A
+      </text`;
+        svgElem.innerHTML =
+          svgElem.innerHTML +
+          `<text x="435" y="172"    style="fill: green; stroke: none; font-size: 20px;">
+        B
+      </text`;
+        svgElem.innerHTML =
+          svgElem.innerHTML +
+          `<text x="438" y="355"    style="fill: green; stroke: none; font-size: 20px;">
+        C
+      </text`;
+      }
+
+      const mySVG = document.getElementById("mySVG");
+      const mySVG2 = document.getElementById("mySVG2");
+      //var svgNS = "http://www.w3.org/2000/svg";
+      const graphWidth = 700;
+      const graphHight = 500;
+
+      function mainFuns(mySvgElem, graphWidth, graphHight) {
+        //define constance and references
+        // const mySVG = document.getElementById("mySVG");
+        //const mySVG2 = document.getElementById("mySVG2");
+        //var svgNS = "http://www.w3.org/2000/svg";
+        //const graphWidth = 700;
+        //const graphHight = 500;
+        const pointArray = [
+          { cx: 40, cy: 500 - 70 },
+          { cx: 80, cy: 500 - 100 },
+          { cx: 160, cy: 500 - 160 },
+          { cx: 240, cy: 500 - 220 },
+          { cx: 320, cy: 500 - 320 },
+          { cx: 460, cy: 500 - 380 },
+
+          //{ cx: 500, cy: 500 - 410 },
+          // { cx: 300, cy: 130 },
+          // { cx: 400, cy: 170 },
+          // { cx: 500, cy: 190 },
+        ];
+
+        const xAxisXArray = [
+          { x: 1, y: 500 + 15, pox: 200 },
+          { x: 2, y: 500 + 15, pox: 400 },
+          { x: 3, y: 500 + 15, pox: 600 },
+          //   { x: 1.2, y: 500 + 15, pox: 240 },
+          //   { x: 1.6, y: 500 + 15, pox: 320 },
+          //   { x: 2.8, y: 500 + 15, pox: 460 },
+          //{ x: 130, y: 500 + 15, pox: 500 },
+        ];
+
+        const yAxisXArray = [
+          { y: 10, x: 40, pox: 500 - 100 },
+          { y: 20, x: 40, pox: 500 - 200 },
+          { y: 30, x: 40, pox: 500 - 300 },
+          { y: 40, x: 40, pox: 500 - 400 },
+          //   { y: 33.0, x: 40, pox: 500 - 330 },
+          //   { y: 45.0, x: 40, pox: 500 - 450 },
+          //{ y: 410, x: 40, pox: 500 - 410 },
+          // { y: 420, x: 40, pox: 500 - 420 },
+          //{ x: 160, y: 500 + 0, pox: 640 },
+        ];
+
+        //Draw rows and columns
+        createLine(graphWidth, graphHight, mySvgElem);
+        //Draw poits
+        plotPoints(pointArray, graphHight, mySvgElem);
+
+        //label x-axis
+        labelXAxis(xAxisXArray, graphWidth, mySvgElem);
+        //labetYaxis
+        labelYAxis(yAxisXArray, graphHight, mySvgElem);
+        //join points
+        joinPoints(mySvgElem);
+        //dash line lower
+        // dashPoints(mySvgElem);
+        //dash upper points
+        //dashPointsUpper(mySvgElem);
+        //insert main horizontal label
+        insertMainHorizontalLabel(mySvgElem);
+        //insert main vertical label
+        insertMainVerticaltalLabel(mySvgElem);
+        //caption
+        insertCaption(mySvgElem);
+        //insert y scale
+        insertYScale(mySvgElem);
+        //insert X scale
+        insertXScale(mySvgElem);
+        //draw slope
+        // drawSlope(mySvgElem);
+        // labelSlope(mySvgElem);
+        // //interpolation
+        // interpolate(mySvgElem);
+        // exterpolation
+        // exterpolate(mySvgElem);
+      }
+      mainFuns(mySVG, graphWidth, graphHight);
+      mainFuns(mySVG2, graphWidth, graphHight);
+
+      //       function insertCaption(params) {
+      //         mySVG.innerHTML =
+      //           mySVG.innerHTML +
+      //           `<text x="200" y="40"    style="fill: #000000; stroke: none; font-size: 25px;">
+      //    Graph of Temperature(K) vs  Volume(mL)
+      // </text>`;
+      //       }
+
+      // function createVerticalLine(graphWidth, graphHight) {
+      //   console.log("in functionnn");
+      //   //<line x1="0"  y1="10" x2="0"   y2="100" style="stroke:#006600;"/>
+      //   //<line x1="10" y1="10" x2="100" y2="100" style="stroke:#006600;"/>
+      //   // var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      //   //to create a line."
+      //   mySVG.setAttribute("width", graphWidth);
+      //   mySVG.setAttribute("height", graphHight);
+      //   //draw horizontal line
+
+      //   //let rowGap = 10;
+      //   //const myLine = document.getElementById("myLine");
+      //   let rowGapIncrement = 20;
+      //   for (
+      //     let rowGap = 10;
+      //     rowGap < graphHight;
+      //     rowGap = rowGap + rowGapIncrement
+      //   ) {
+      //     //const element = array[index];
+      //     console.log("in functionnn222222");
+      //     //var myLine = document.createElementNS(svgNS, "line");
+      //     var myLine = document.createElementNS(
+      //       "http://www.w3.org/2000/svg",
+      //       "line"
+      //     );
+      //     myLine.setAttribute("id", rowGap);
+      //     myLine.setAttribute("x1", 0);
+      //     myLine.setAttribute("y1", rowGap);
+      //     myLine.setAttribute("x2", graphWidth);
+      //     myLine.setAttribute("y2", rowGap);
+      //     //myLine.style["stroke-width"] = 10;
+      //     myLine.setAttribute("stroke", "black");
+      //     // myCircle.setAttributeNS(null, "fill", "black");
+      //     // myCircle.setAttributeNS(null, "stroke", "none");
+
+      //     mySVG.appendChild(myLine);
+      //   }
+      // }
+
+      //draw vertical line
+
+      var imgElement = document.getElementById("svg-image");
+      var divBase64OutputElement = document.getElementById("svg-base64-output");
+
+      //Create your own image
+      //var img = document.createElement("img");
+
+      //Serialize the svg to string
+      var svgString = new XMLSerializer().serializeToString(mySVG);
+
+      //Remove any characters outside the Latin1 range
+      //var decoded = unescape(encodeURIComponent(svgString));
+
+      //Now we can use btoa to convert the svg to base64
+      var base64 = window.btoa(svgString);
+
+      var imgSource = `data:image/svg+xml;base64,${base64}`;
+
+      imgElement.setAttribute("src", imgSource);
+      divBase64OutputElement.textContent = imgSource;
+
+      // var s = new XMLSerializer().serializeToString(document.getElementById("svg"))
+
+      // and then btoa can convert that to base64
+
+      // var encodedData = window.btoa(s);
+
+      // Just prepend the data URL intro i.e. data:image/svg+xml;base64, and there you have it.
+      // targeting the svg itself
+      //const svg = document.querySelector("svg");
+
+      // variable for the namespace
+      //const svgns = "http://www.w3.org/2000/svg";
+
+      // make a simple rectangle
+      //let newRect = document.createElementNS(svgns, "line");
+      //<line x1="10" y1="10" x2="100" y2="100" style="stroke:#006600;" >;
+      //   newRect.setAttribute("x1", "0");
+      //   newRect.setAttribute("y1", "10");
+      //   newRect.setAttribute("x2", "100");
+      //   newRect.setAttribute("y2", "10");
+      //   newRect.setAttribute("fill", "#5cceee");
+
+      // append the new rectangle to the svg
+      // svg.appendChild(newRect);
+    </script>
+  </body>
+</html>
