@@ -250,7 +250,7 @@
       function dashPoints(svgElem) {
         svgElem.innerHTML =
           svgElem.innerHTML +
-          `<line x1="60"  y1="500" x2="140"   y2="440" style="stroke:#006600; fill: #33cc33;stroke-width:3;stroke-dasharray:10 5"/>`;
+          `<line x1="100"  y1="430" x2="60"   y2="460" style="stroke:#006600; fill: #33cc33;stroke-width:3;stroke-dasharray:10 5"/>`;
         // `<polyline
         //   points="140,440 220,380  300,320  380,260 460,200 540,140"
         //   style="stroke:#006600; fill: #33cc33;stroke-width:3"
@@ -260,7 +260,7 @@
       function dashPointsUpper(svgElem) {
         svgElem.innerHTML =
           svgElem.innerHTML +
-          `<line x1="540"  y1="140" x2="620"   y2="80" style="stroke:#006600; fill: #33cc33;stroke-width:3;stroke-dasharray:10 5"/>`;
+          `<line x1="520"  y1="120" x2="600"   y2="60"  style="stroke:#006600; fill: #33cc33;stroke-width:3;stroke-dasharray:10 5"/>`;
         // `<polyline
         //   points="140,440 220,380  300,320  380,260 460,200 540,140"
         //   style="stroke:#006600; fill: #33cc33;stroke-width:3"
@@ -327,19 +327,33 @@
       }
 
       function interpolate(svgElem) {
+        // svgElem.innerHTML =
+        //   svgElem.innerHTML +
+        //   `<polyline
+        //           points="200,500  200 , 355  58,355"
+        //           style="stroke:#006600;fill:none;stroke-width:3;stroke-dasharray:10 5"
+        //         ><title>interpolaton</title></polyline>`;
+
         svgElem.innerHTML =
           svgElem.innerHTML +
           `<polyline 
-                  points="500,500 500,170  60,170"
+                  points="380,500  380 ,220  58,220"
                   style="stroke:#006600;fill:none;stroke-width:3;stroke-dasharray:10 5"
                 ><title>interpolaton</title></polyline>`;
       }
 
       function exterpolate(svgElem) {
+        // svgElem.innerHTML =
+        //   svgElem.innerHTML +
+        //   `<polyline
+        //           points="560,500 560,90  60,90"
+        //           style="stroke:#006600;fill:none;stroke-width:3;stroke-dasharray:10 5"
+        //         > <title>exterpolaton</title></polyline>`;
+
         svgElem.innerHTML =
           svgElem.innerHTML +
           `<polyline 
-                  points="580,500 580,110  60,110"
+                  points="460,500 460,160  60,160"
                   style="stroke:#006600;fill:none;stroke-width:3;stroke-dasharray:10 5"
                 > <title>exterpolaton</title></polyline>`;
       }
@@ -439,9 +453,9 @@
         //join points
         joinPoints(mySvgElem);
         //dash line lower
-        // dashPoints(mySvgElem);
+        dashPoints(mySvgElem);
         //dash upper points
-        //dashPointsUpper(mySvgElem);
+        dashPointsUpper(mySvgElem);
         //insert main horizontal label
         insertMainHorizontalLabel(mySvgElem);
         //insert main vertical label
@@ -456,9 +470,9 @@
         // drawSlope(mySvgElem);
         // labelSlope(mySvgElem);
         // //interpolation
-        // interpolate(mySvgElem);
+        //interpolate(mySvgElem);
         // exterpolation
-        // exterpolate(mySvgElem);
+        exterpolate(mySvgElem);
       }
       mainFuns(mySVG, graphWidth, graphHight);
       mainFuns(mySVG2, graphWidth, graphHight);
